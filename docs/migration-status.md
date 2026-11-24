@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 31 |
-| Standardized generic scripts produced | 24 |
-| Shared business-call references produced | 24 |
+| Legacy source files already migrated or merged | 33 |
+| Standardized generic scripts produced | 26 |
+| Shared business-call references produced | 26 |
 | Legacy files reviewed and explicitly rejected/deferred | 11 |
-| Remaining legacy files without a final per-file disposition | 71 |
+| Remaining legacy files without a final per-file disposition | 69 |
 
-The remaining 88 is intentionally conservative. Some files have already been
+The remaining 69 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -51,6 +51,8 @@ completed file review.
 | `scripts/documents/split_voc_by_label_groups.py` | duplicate `xml_getlabel_to_new.py` files | Global state bug removed |
 | `scripts/datasets/rename_directories_to_pinyin.py` | `imgdeal/name_pinyin.py` | Collision check and preview default added |
 | `scripts/datasets/split_paired_dataset.py` | `important/data_divided.py` | Generic ratios, seed, and paired copy layout |
+| `scripts/documents/voc_to_coco.py` | `imgdeal/voc_to_coco_old.py` | Global conversion state removed; deterministic category IDs and error summary added |
+| `scripts/documents/yolo_to_voc.py` | `important/txt2xml.py` | Image formats generalized; paths and classes moved to business call |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.

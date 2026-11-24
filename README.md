@@ -1,6 +1,6 @@
 # VisPraxis Toolkit
 
-VisPraxis Toolkit 是服务于 [`VisPraxis`](../VisPraxis/README.md) 的脚本汇总仓库。
+VisPraxis Toolkit 是服务于开源项目 [**VisPraxis**](https://github.com/yl0911/VisPraxis) 的脚本汇总仓库。
 项目只迁移仍有价值、可以复用的功能，将通用脚本与经常变化的业务参数分开维护。
 
 ## 目录职责
@@ -49,6 +49,8 @@ vispraxis-toolkit/
 | `scripts/documents/render_pdf_pages.py` | 使用 PyMuPDF 将 PDF 页面渲染为图片 | `tests/documents/sample_pdf_to_images.py` |
 | `scripts/documents/svg_to_png.py` | 使用 CairoSVG 将单个或批量 SVG 渲染为 PNG | `tests/documents/captcha_svg_to_png.py` |
 | `scripts/documents/voc_to_yolo.py` | 将 Pascal VOC XML 检测框转换为 YOLO TXT 标签 | `tests/documents/geetest_voc_to_yolo.py` |
+| `scripts/documents/voc_to_coco.py` | 将一组 Pascal VOC XML 标注汇总为 COCO instances JSON | `tests/documents/coco_person_voc_to_coco.py` |
+| `scripts/documents/yolo_to_voc.py` | 根据对应图片尺寸将 YOLO TXT 标签转换为 Pascal VOC XML | `tests/documents/notouchshape_yolo_to_voc.py` |
 | `scripts/documents/split_voc_by_label_groups.py` | 按配置的类别组将一份 VOC 拆成多组 XML | `tests/documents/telecom_split_voc_label_groups.py` |
 
 ### 视觉算法与图像处理
