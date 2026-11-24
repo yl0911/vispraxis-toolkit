@@ -20,6 +20,7 @@
 | `scripts/datasets/quarantine_unpaired_files.py` | 查找并隔离没有同名配对项的图片或标签，默认预览 | `tests/datasets/street_quarantine_unpaired_files.py` |
 | `scripts/datasets/copy_unique_images_by_hash.py` | 按 MD5 或感知哈希复制唯一图片，支持保留原名，默认预览；感知哈希需 Pillow、ImageHash | `tests/datasets/recaptcha_copy_unique_images.py` |
 | `scripts/datasets/download_oss_prefix.py` | 按 OSS 对象前缀并发下载文件，保留相对目录且默认预览；凭证仅从参数或环境变量读取 | `tests/datasets/hcaptcha_download_oss_prefix.py` |
+| `scripts/datasets/export_image_md5_manifest.py` | 对图片原始字节或 Base64 解码内容计算 MD5，导出 JSON、Go 或 TSV 清单 | `tests/datasets/icon_hash_export_for_go.py` |
 
 ## 文档内容处理
 
@@ -48,7 +49,12 @@
 | `scripts/vision/extract_video_frames.py` | 按帧间隔或时间间隔批量提取视频帧 | `tests/vision/video_extract_every_two_seconds.py` |
 | `scripts/vision/group_images_by_dhash.py` | 使用 dHash 将完全相同哈希的图片分组复制 | `tests/vision/nine_group_images_by_dhash.py` |
 | `scripts/vision/inpaint_color_region.py` | 在指定 ROI 内按 HSV 色域生成蒙版并执行图像修复 | `tests/vision/db_boxes_inpaint_yellow_watermark.py` |
+| `scripts/vision/merge_fading_video_targets.py` | 从静态背景视频抽帧，将不同时间渐显的目标合成到一张图 | `tests/vision/hcaptcha_merge_fading_video_targets.py` |
 
 ## 服务调度辅助
 
-当前还没有迁入确认通用的 `automation` 脚本。远程删除、账号分析、写死凭证的服务调用不会直接迁入；后续只提取明确可复用的服务启动、健康检查、批量请求和客户端调用功能。
+| 脚本 | 功能描述 | Test / 业务调用参考 |
+| --- | --- | --- |
+| `scripts/automation/invoke_image_json_service.py` | 将图片按 MD5 编码为 Base64 JSON 并调用可配置 HTTP 服务，默认预览 | `tests/automation/temu_invoke_image_service.py` |
+
+远程删除、账号分析和写死凭证的服务调用不会直接迁入；后续继续提取明确可复用的服务启动、健康检查、批量请求和客户端调用功能。

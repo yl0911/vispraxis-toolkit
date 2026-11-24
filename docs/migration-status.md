@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 39 |
-| Standardized generic scripts produced | 31 |
-| Shared business-call references produced | 31 |
-| Legacy files reviewed and explicitly rejected/deferred | 23 |
-| Remaining legacy files without a final per-file disposition | 51 |
+| Legacy source files already migrated or merged | 42 |
+| Standardized generic scripts produced | 34 |
+| Shared business-call references produced | 34 |
+| Legacy files reviewed and explicitly rejected/deferred | 28 |
+| Remaining legacy files without a final per-file disposition | 43 |
 
-The remaining 51 is intentionally conservative. Some files have already been
+The remaining 43 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -58,6 +58,9 @@ completed file review.
 | `scripts/documents/rename_voc_labels.py` | `important/Pictools.py` | One operation extracted from the legacy multipurpose class; in-place edits require execute mode |
 | `scripts/documents/sync_voc_image_sizes.py` | `important/Pictools.py` | Image-size reconciliation extracted; legacy delete-on-error behavior removed |
 | `scripts/datasets/download_oss_prefix.py` | `dingstock/oss_download.py` | Embedded credentials removed; prefix-relative paths, preview mode, concurrency limits, and overwrite control added |
+| `scripts/automation/invoke_image_json_service.py` | root `request_batch.py` | Request construction separated from Temu response drawing and business question extraction |
+| `scripts/vision/merge_fading_video_targets.py` | root `merge_frames_targets.py` | Hard-coded paths removed; standard directory runner, structured results, and parameter validation added |
+| `scripts/datasets/export_image_md5_manifest.py` | `dingstock/ml_iconHash_batch.py` | Raw-image and Base64-text hashing retained; JSON, Go, and TSV output made explicit |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -131,3 +134,14 @@ remain business solvers rather than general visual algorithms. The experimental
 background-removal model during import and its no-rectangle path leaves the
 result undefined. Reusable document rectification should be extracted only when
 its expected inputs and failure behavior are confirmed.
+
+Root `redis_get_cache_batch.py` is excluded from generic migration because it
+contains an embedded remote credential and decodes one HCaptcha-specific cache
+schema. `ws/AI_API_time.py` is an obsolete scheduler experiment whose job only
+writes a test file; neither is a reusable service helper.
+
+`ws/Plate_Landmarks_datasets.py` remains tied to one label schema and training
+text format. `ws/seal_extract.py` is an unvalidated fixed-threshold experiment,
+and `dingstock/z_train_dataload.py` combines model dataset code with split logic
+already covered by Toolkit scripts. These three remain deferred rather than
+being copied as generic capabilities.
