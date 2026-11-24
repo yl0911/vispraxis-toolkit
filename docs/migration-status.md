@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 33 |
-| Standardized generic scripts produced | 26 |
-| Shared business-call references produced | 26 |
-| Legacy files reviewed and explicitly rejected/deferred | 11 |
-| Remaining legacy files without a final per-file disposition | 69 |
+| Legacy source files already migrated or merged | 34 |
+| Standardized generic scripts produced | 27 |
+| Shared business-call references produced | 27 |
+| Legacy files reviewed and explicitly rejected/deferred | 16 |
+| Remaining legacy files without a final per-file disposition | 63 |
 
-The remaining 69 is intentionally conservative. Some files have already been
+The remaining 63 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -53,6 +53,7 @@ completed file review.
 | `scripts/datasets/split_paired_dataset.py` | `important/data_divided.py` | Generic ratios, seed, and paired copy layout |
 | `scripts/documents/voc_to_coco.py` | `imgdeal/voc_to_coco_old.py` | Global conversion state removed; deterministic category IDs and error summary added |
 | `scripts/documents/yolo_to_voc.py` | `important/txt2xml.py` | Image formats generalized; paths and classes moved to business call |
+| `scripts/datasets/quarantine_unpaired_files.py` | `important/del_imgxml.py` | Destructive delete removed; quarantine is preview-only by default with collision checks |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -100,3 +101,9 @@ Also rejected/deferred after detailed review: `labels_divided_train_val.py`,
 `expand_divided_train_val.py`, and `divide_dataset_yolo_txt.py` use specialized
 sampling strategies; `yolotxt_get_cats_img_label.py` contains broken coordinate
 and OpenCV calls; `select_laptop_tv_img.py` is tied to one JSON/business schema.
+
+Further reviewed without migration: root `win_cut.py` is a small interactive GUI
+rather than a reusable script; `dingstock/img_cut.py` is a disabled fixed-coordinate
+business crop; `dingstock/ahash_name.py` and `ahash_name_Cv.py` are import-time
+experiments; `ws/unpack_glint360k.py` remains deferred because it depends on the
+legacy MXNet RecordIO layout and has no confirmed current use.
