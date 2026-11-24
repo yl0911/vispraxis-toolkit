@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 34 |
-| Standardized generic scripts produced | 27 |
-| Shared business-call references produced | 27 |
-| Legacy files reviewed and explicitly rejected/deferred | 16 |
-| Remaining legacy files without a final per-file disposition | 63 |
+| Legacy source files already migrated or merged | 39 |
+| Standardized generic scripts produced | 31 |
+| Shared business-call references produced | 31 |
+| Legacy files reviewed and explicitly rejected/deferred | 23 |
+| Remaining legacy files without a final per-file disposition | 51 |
 
-The remaining 63 is intentionally conservative. Some files have already been
+The remaining 51 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -54,6 +54,10 @@ completed file review.
 | `scripts/documents/voc_to_coco.py` | `imgdeal/voc_to_coco_old.py` | Global conversion state removed; deterministic category IDs and error summary added |
 | `scripts/documents/yolo_to_voc.py` | `important/txt2xml.py` | Image formats generalized; paths and classes moved to business call |
 | `scripts/datasets/quarantine_unpaired_files.py` | `important/del_imgxml.py` | Destructive delete removed; quarantine is preview-only by default with collision checks |
+| `scripts/datasets/copy_unique_images_by_hash.py` | three `dingstock/remove_duplicates*.py` variants | MD5 and perceptual hash paths merged; destructive moves and timestamp-based scanning removed |
+| `scripts/documents/rename_voc_labels.py` | `important/Pictools.py` | One operation extracted from the legacy multipurpose class; in-place edits require execute mode |
+| `scripts/documents/sync_voc_image_sizes.py` | `important/Pictools.py` | Image-size reconciliation extracted; legacy delete-on-error behavior removed |
+| `scripts/datasets/download_oss_prefix.py` | `dingstock/oss_download.py` | Embedded credentials removed; prefix-relative paths, preview mode, concurrency limits, and overwrite control added |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -107,3 +111,23 @@ rather than a reusable script; `dingstock/img_cut.py` is a disabled fixed-coordi
 business crop; `dingstock/ahash_name.py` and `ahash_name_Cv.py` are import-time
 experiments; `ws/unpack_glint360k.py` remains deferred because it depends on the
 legacy MXNet RecordIO layout and has no confirmed current use.
+
+`dingstock/img_clustering.py` remains deferred: it loads a deprecated pretrained
+model at import time and recomputes features inside an O(n-squared) loop. The
+capability should only migrate when its current model and grouping semantics are
+confirmed. `dingstock/rc_rename.py` is a recaptcha-specific filename grammar and
+class mapping, so it remains a business script rather than a generic capability.
+
+`important/data_augmented.py` remains deferred because cropping, padding, noise,
+and annotation changes are tightly coupled and its image lookup depends on a
+module-level business path. `important/run_mutil_process.py` is excluded from
+generic migration: it contains an embedded credential and private endpoint for
+one retired request protocol. A future batch requester should be designed from
+current service requirements instead of preserving that protocol.
+
+The captcha-specific `dingstock/similar_shape.py` and `dingstock/grid_drop.py`
+remain business solvers rather than general visual algorithms. The experimental
+`dingstock/bill_pic_processing.py` is also deferred: it loads a machine-local
+background-removal model during import and its no-rectangle path leaves the
+result undefined. Reusable document rectification should be extracted only when
+its expected inputs and failure behavior are confirmed.

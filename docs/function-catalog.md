@@ -18,6 +18,8 @@
 | `scripts/datasets/rename_directories_to_pinyin.py` | 将直接子目录的中文名称转换为拼音，默认预览 | `tests/datasets/new_directories_to_pinyin.py` |
 | `scripts/datasets/split_paired_dataset.py` | 将成对图片和标签按比例复制到 train/val/test | `tests/datasets/notouchshape_split_paired_dataset.py` |
 | `scripts/datasets/quarantine_unpaired_files.py` | 查找并隔离没有同名配对项的图片或标签，默认预览 | `tests/datasets/street_quarantine_unpaired_files.py` |
+| `scripts/datasets/copy_unique_images_by_hash.py` | 按 MD5 或感知哈希复制唯一图片，支持保留原名，默认预览；感知哈希需 Pillow、ImageHash | `tests/datasets/recaptcha_copy_unique_images.py` |
+| `scripts/datasets/download_oss_prefix.py` | 按 OSS 对象前缀并发下载文件，保留相对目录且默认预览；凭证仅从参数或环境变量读取 | `tests/datasets/hcaptcha_download_oss_prefix.py` |
 
 ## 文档内容处理
 
@@ -33,6 +35,8 @@
 | `scripts/documents/voc_to_coco.py` | 将一组 Pascal VOC XML 标注汇总为 COCO instances JSON | `tests/documents/coco_person_voc_to_coco.py` |
 | `scripts/documents/yolo_to_voc.py` | 根据对应图片尺寸将 YOLO TXT 标签转换为 Pascal VOC XML | `tests/documents/notouchshape_yolo_to_voc.py` |
 | `scripts/documents/split_voc_by_label_groups.py` | 按配置的类别组将一份 VOC 拆成多组 XML | `tests/documents/telecom_split_voc_label_groups.py` |
+| `scripts/documents/rename_voc_labels.py` | 按映射批量修改 Pascal VOC 类别名称，默认预览 | `tests/documents/road_puddle_rename_voc_labels.py` |
+| `scripts/documents/sync_voc_image_sizes.py` | 按对应图片的真实尺寸同步 VOC width、height、depth，默认预览 | `tests/documents/street_sync_voc_image_sizes.py` |
 
 ## 视觉算法与图像处理
 
