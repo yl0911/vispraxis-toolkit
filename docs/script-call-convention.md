@@ -67,3 +67,18 @@ to preview/dry-run where the underlying script supports it.
 `local/` may contain several variants for different projects or environments.
 Its contents are Git-ignored except for `local/README.md`. Promote reusable
 logic to `scripts/` and shareable business references to `tests/`.
+
+## Documentation update
+
+Every migration batch updates documentation together with code:
+
+1. Add the script, function description, and business call to
+   `docs/function-catalog.md`.
+2. Update counts, legacy-source mapping, and rejected/deferred paths in
+   `docs/migration-status.md`.
+3. Update `README.md`, taxonomy, naming, or source-disposition documents when
+   the directory structure or project rules change.
+
+The function catalog should contain exactly one row for every non-`__init__.py`
+module under `scripts/`, and normally one corresponding business call under
+`tests/`.

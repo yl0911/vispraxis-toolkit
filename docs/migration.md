@@ -88,23 +88,31 @@ when duplicate provenance needs to be proven.
 - A deprecated alias may be provided at the command layer, but duplicate source
   modules are not retained in the functional package.
 
-## First migration batch
+## Continuing the migration
 
-Start with scripts that already have a clear command boundary and limited
-external state:
+The initial low-risk batches are complete. Current counts and per-file decisions
+are maintained in [migration-status.md](migration-status.md); the user-facing
+script index is maintained in [function-catalog.md](function-catalog.md).
 
-- `move_matching_images_to_cut.py` -> `datasets`;
-- `split_log_data_images.py` -> `datasets` after separating reusable decoding
-  from its historical log convention;
-- `svg2img.py` and `svg_to_img.go` -> candidate implementations of one
-  `documents` conversion capability until parity is established;
-- `merge_frames_targets.py` -> `vision`;
-- annotation document converters -> `documents`, beginning with confirmed
-  duplicates.
+Continue in small reviewed batches:
 
-Defer database deletion, cloud cleanup, crawler, service benchmark, and scripts
-with embedded endpoint or credential assumptions until their side effects are
-explicitly modeled.
+1. Select sources that have not received a final disposition.
+2. Compare semantic duplicates before creating a new script.
+3. Create one clearly named generic capability per script; do not rebuild a
+   historical multipurpose tool module.
+4. Move historical paths and business parameters into a runnable
+   `tests/<domain>/` call.
+5. Make destructive filesystem actions and remote calls preview-only by default
+   where practical.
+6. Verify syntax, CLI help, and a minimal behavior example that does not depend
+   on unavailable production data or credentials.
+7. Update the function catalog, migration counts, migrated-source table, and
+   exact rejected/deferred decisions in the same batch.
+
+Database deletion, cloud cleanup, crawlers, service benchmarks, and scripts
+with embedded endpoint or credential assumptions remain excluded or deferred
+until a current reusable requirement exists and side effects are explicitly
+modeled.
 
 Do not select candidates from the excluded `asr/`, `backend/`, or `baiduapi/`
 trees, even when a file appears to fit a functional domain.

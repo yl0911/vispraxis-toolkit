@@ -11,7 +11,7 @@ vispraxis-toolkit/
 │   ├── datasets/          # 数据集获取、整理、拆分、去重和管理
 │   ├── documents/         # 标注、XML、JSON、PDF 等文档内容处理
 │   ├── vision/            # 图像转换、裁剪、修复、聚类等视觉处理
-│   └── automation/        # 服务启动、调用和第三方客户端辅助（待迁移）
+│   └── automation/        # 服务调用、启动与第三方客户端辅助
 ├── tests/                 # 可提交的业务调用参考和真实参数预设
 ├── local/                 # 当前机器/环境的适配调用，除 README 外不提交
 └── docs/                  # 分类、迁移和调用规范

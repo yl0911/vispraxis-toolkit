@@ -89,14 +89,14 @@ They remain in `D:\yl\localcode` until their current business use is confirmed.
 
 ## Generic candidates still to review
 
-- dataset split, pairing, rename, deduplication, archive, and RecordIO unpacking;
-- JSON/XML/COCO/VOC conversion and label editing;
-- PDF rendering, video frame extraction, GIF editing, image cropping, and
-  annotation rendering;
-- background removal, inpainting, similarity, clustering, odd-target detection,
-  frame merging, and synthetic image generation;
-- general batch request and service-start helpers after provider/business
-  parameters are separated.
+- remaining archive, packaging, specialized rename, and dataset assembly code;
+- COCO/VOC conversion variants and annotation rendering not already superseded;
+- background removal, similarity, clustering, odd-target detection, and
+  synthetic image generation whose current use is still unclear;
+- current service-start and health-check helpers after provider and credential
+  assumptions are separated;
+- recent large scripts such as RGBA icon clustering, reviewed independently
+  rather than copied as a complete historical project.
 
 Candidates are migrated in small reviewed batches. A candidate may still be
 rejected if its useful behavior cannot be separated from one historical task.

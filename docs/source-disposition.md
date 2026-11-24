@@ -38,10 +38,21 @@ implementation candidates:
 | `dingstock/icon_rgba_cluster/debug_montages/` | Visual debug output |
 | `*_out.txt`, logs, reports | Generated execution output unless explicitly required as a fixture |
 
-## Tests and sample data
+## Legacy tests, business calls, and sample data
 
-Tests remain deferred as requested; they are not part of the first migration.
-This is stricter than treating the whole `test/` directory as reusable tests:
+Legacy test files remain deferred unless their parameters are useful as a
+business call for a migrated generic script. The new repository's `tests`
+directory is not a copy of the old test tree and is not a unit-test suite:
+
+- `tests/<domain>/` stores runnable business calls with real paths, classes,
+  provider settings, or other frequently changed parameters;
+- every migrated generic script should receive a corresponding business call
+  when the legacy source contains meaningful invocation parameters;
+- machine-only variants belong in Git-ignored `local/`, not in `tests`;
+- old test programs are not migrated merely because their path or name contains
+  `test`.
+
+The historical test tree is handled conservatively:
 
 - `test/locustfile.py` and `test/seal/TY_batch_fwreq.py` are preserved in the
   old repository without modification for now;
@@ -69,7 +80,7 @@ Their directory name does not decide migration:
 | `ws/` | Legacy review | Mostly 2021-2023 document/API experiments with hard-coded service assumptions |
 
 Nothing in these directories is migrated merely because it can be assigned to
-one of the eight functional domains.
+one of the four functional domains.
 
 ## Decision states
 

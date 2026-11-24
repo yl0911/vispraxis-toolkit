@@ -48,3 +48,10 @@ Machine-specific paths, fixed providers, and business parameters belong under
 
 The test file should expose a clearly marked parameter preset and a `main()`.
 It is a runnable business call rather than a collection of assertion functions.
+
+## Catalog entries
+
+New generic scripts must be added to `docs/function-catalog.md` under their
+primary domain. Use the actual repository path, a one-sentence behavioral
+description, and the matching business-call path. Do not maintain a second
+detailed feature table in the root README.
