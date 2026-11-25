@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 42 |
-| Standardized generic scripts produced | 34 |
-| Shared business-call references produced | 34 |
-| Legacy files reviewed and explicitly rejected/deferred | 28 |
-| Remaining legacy files without a final per-file disposition | 43 |
+| Legacy source files already migrated or merged | 49 |
+| Standardized generic scripts produced | 38 |
+| Shared business-call references produced | 38 |
+| Legacy files reviewed and explicitly rejected/deferred | 34 |
+| Remaining legacy files without a final per-file disposition | 30 |
 
-The remaining 43 is intentionally conservative. Some files have already been
+The remaining 30 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -61,6 +61,10 @@ completed file review.
 | `scripts/automation/invoke_image_json_service.py` | root `request_batch.py` | Request construction separated from Temu response drawing and business question extraction |
 | `scripts/vision/merge_fading_video_targets.py` | root `merge_frames_targets.py` | Hard-coded paths removed; standard directory runner, structured results, and parameter validation added |
 | `scripts/datasets/export_image_md5_manifest.py` | `dingstock/ml_iconHash_batch.py` | Raw-image and Base64-text hashing retained; JSON, Go, and TSV output made explicit |
+| `scripts/documents/coco_to_voc.py` | `imgdeal/coco_to_voc.py`, `imgdeal/COCOtoVOC.py` | Two implementations merged without pycocotools; class filtering and optional image copy retained |
+| `scripts/documents/remove_voc_labels.py` | duplicate `bty/xmlTool.py`, `imgdeal/xmlTool.py` | Missing remove operation extracted; count and rename behavior are covered by existing scripts |
+| `scripts/vision/crop_images_by_voc_annotations.py` | `dingstock/geetest_v4_datasets.py` | Paired VOC crop behavior extracted; fixed slots, display state, and hash grouping omitted |
+| `scripts/vision/composite_rgba_foregrounds.py` | root `get_mask_final.py`, `get_mask_final_baseimg.py` | Two experiments merged into deterministic, bounded RGBA composition without per-pixel Python loops |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -101,8 +105,9 @@ They remain in `D:\yl\localcode` until their current business use is confirmed.
 Candidates are migrated in small reviewed batches. A candidate may still be
 rejected if its useful behavior cannot be separated from one historical task.
 
-Rejected after review: the old `json_to_xml.py` is incomplete, and the old
-`coco_to_voc.py` is tightly coupled to one directory layout; neither is copied.
+Rejected after review: the old `json_to_xml.py` is incomplete. The two historical
+COCO-to-VOC implementations were later merged into a parameterized converter
+rather than copied with their original directory assumptions.
 
 Also rejected/deferred after detailed review: `labels_divided_train_val.py`,
 `expand_divided_train_val.py`, and `divide_dataset_yolo_txt.py` use specialized
@@ -145,3 +150,21 @@ text format. `ws/seal_extract.py` is an unvalidated fixed-threshold experiment,
 and `dingstock/z_train_dataload.py` combines model dataset code with split logic
 already covered by Toolkit scripts. These three remain deferred rather than
 being copied as generic capabilities.
+
+The duplicate `bty/ocr_puttext.py` and `ws/ocr_puttext.py` remain deferred: they
+parse one fixed Chinese field set from one image region and require a machine
+font. Generic text drawing alone does not justify preserving that business
+layout parser.
+
+`ws/bill_correct.py` remains a historical invoice-layout heuristic with fixed
+ratio tables and interactive display. `ws/ynyd_excel.py` is a one-off fuzzy
+merge for two named procurement spreadsheets with fixed columns and output
+paths. Neither is migrated as a generic capability. `dingstock/rc_rename.py`
+remains covered by its earlier business-specific defer decision.
+
+Root `imgTemp_augmented.py` remains a specialized three-object oriented-box
+generator with coupled replacement rules. `dingstock/icon_rgba_cluster.py` is
+newer and potentially valuable, but its single large module currently combines
+feature extraction, distance construction, clustering, file copying, reports,
+HTML preview, and label-dictionary generation. It is deferred for deliberate
+decomposition rather than copied wholesale.

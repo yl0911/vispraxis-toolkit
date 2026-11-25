@@ -38,6 +38,8 @@
 | `scripts/documents/split_voc_by_label_groups.py` | 按配置的类别组将一份 VOC 拆成多组 XML | `tests/documents/telecom_split_voc_label_groups.py` |
 | `scripts/documents/rename_voc_labels.py` | 按映射批量修改 Pascal VOC 类别名称，默认预览 | `tests/documents/road_puddle_rename_voc_labels.py` |
 | `scripts/documents/sync_voc_image_sizes.py` | 按对应图片的真实尺寸同步 VOC width、height、depth，默认预览 | `tests/documents/street_sync_voc_image_sizes.py` |
+| `scripts/documents/coco_to_voc.py` | 将 COCO 检测框转换为 Pascal VOC XML，支持类别筛选和可选复制图片 | `tests/documents/coco_outdoor_coco_to_voc.py` |
+| `scripts/documents/remove_voc_labels.py` | 从 Pascal VOC XML 中批量移除指定类别对象，默认预览 | `tests/documents/street_remove_voc_labels.py` |
 
 ## 视觉算法与图像处理
 
@@ -50,6 +52,8 @@
 | `scripts/vision/group_images_by_dhash.py` | 使用 dHash 将完全相同哈希的图片分组复制 | `tests/vision/nine_group_images_by_dhash.py` |
 | `scripts/vision/inpaint_color_region.py` | 在指定 ROI 内按 HSV 色域生成蒙版并执行图像修复 | `tests/vision/db_boxes_inpaint_yellow_watermark.py` |
 | `scripts/vision/merge_fading_video_targets.py` | 从静态背景视频抽帧，将不同时间渐显的目标合成到一张图 | `tests/vision/hcaptcha_merge_fading_video_targets.py` |
+| `scripts/vision/crop_images_by_voc_annotations.py` | 按每张图片对应的 VOC XML 批量裁剪对象并按类别保存 | `tests/vision/geetest_crop_images_by_voc_annotations.py` |
+| `scripts/vision/composite_rgba_foregrounds.py` | 将 RGBA 前景随机旋转、缩放并按透明度叠加到背景图，支持固定随机种子 | `tests/vision/icon_composite_augmentation.py` |
 
 ## 服务调度辅助
 
