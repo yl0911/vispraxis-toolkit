@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 49 |
-| Standardized generic scripts produced | 38 |
-| Shared business-call references produced | 38 |
-| Legacy files reviewed and explicitly rejected/deferred | 34 |
-| Remaining legacy files without a final per-file disposition | 30 |
+| Legacy source files already migrated or merged | 51 |
+| Standardized generic scripts produced | 40 |
+| Shared business-call references produced | 40 |
+| Legacy files reviewed and explicitly rejected/deferred | 40 |
+| Remaining legacy files without a final per-file disposition | 22 |
 
-The remaining 30 is intentionally conservative. Some files have already been
+The remaining 22 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -65,6 +65,8 @@ completed file review.
 | `scripts/documents/remove_voc_labels.py` | duplicate `bty/xmlTool.py`, `imgdeal/xmlTool.py` | Missing remove operation extracted; count and rename behavior are covered by existing scripts |
 | `scripts/vision/crop_images_by_voc_annotations.py` | `dingstock/geetest_v4_datasets.py` | Paired VOC crop behavior extracted; fixed slots, display state, and hash grouping omitted |
 | `scripts/vision/composite_rgba_foregrounds.py` | root `get_mask_final.py`, `get_mask_final_baseimg.py` | Two experiments merged into deterministic, bounded RGBA composition without per-pixel Python loops |
+| `scripts/vision/find_color_outlier_targets.py` | root `find_odd_target.py` | Color-histogram outlier scoring extracted from its HCaptcha defaults; structured results and explicit visualization output added |
+| `scripts/automation/evaluate_image_text_service.py` | `dingstock/ocr_common2_eval.py` | Dataset collection, batched service calls, response matching, accuracy calculation, and reports retained; local endpoint and service parameters moved to the business call |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -168,3 +170,19 @@ newer and potentially valuable, but its single large module currently combines
 feature extraction, distance construction, clustering, file copying, reports,
 HTML preview, and label-dictionary generation. It is deferred for deliberate
 decomposition rather than copied wholesale.
+
+`imgdeal/rename.py` is superseded by the safer sequential rename script; its
+paired timestamp rename behavior is nondeterministic and does not justify a
+second generic renamer. `dingstock/md5check/main.go` is likewise covered by the
+existing hash manifest and duplicate-management scripts, so the small reporting
+variant is not copied.
+
+Root `government_news_crawler.py` is an incomplete one-site database crawler.
+Root `spark_mucl_cn_iat.py` is a provider demo for the ASR capability already
+excluded by project decision. Neither is a Toolkit candidate.
+
+The older root `z_geticon_v3_shein.py` is superseded by the much newer
+`dingstock/z_geticon_v3_shein.py`. The newer file remains deferred because it
+combines multiple HCaptcha data-generation versions, clustered-label contracts,
+background generators, masks, and business output layouts in one large module;
+it should only be split when those current workflows are explicitly required.

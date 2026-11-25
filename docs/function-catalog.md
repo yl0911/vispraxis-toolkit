@@ -54,11 +54,13 @@
 | `scripts/vision/merge_fading_video_targets.py` | 从静态背景视频抽帧，将不同时间渐显的目标合成到一张图 | `tests/vision/hcaptcha_merge_fading_video_targets.py` |
 | `scripts/vision/crop_images_by_voc_annotations.py` | 按每张图片对应的 VOC XML 批量裁剪对象并按类别保存 | `tests/vision/geetest_crop_images_by_voc_annotations.py` |
 | `scripts/vision/composite_rgba_foregrounds.py` | 将 RGBA 前景随机旋转、缩放并按透明度叠加到背景图，支持固定随机种子 | `tests/vision/icon_composite_augmentation.py` |
+| `scripts/vision/find_color_outlier_targets.py` | 基于旋转不敏感的 Lab 颜色直方图，从贴合目标的检测框中识别视觉离群项 | `tests/vision/hcaptcha_find_color_outlier_targets.py` |
 
 ## 服务调度辅助
 
 | 脚本 | 功能描述 | Test / 业务调用参考 |
 | --- | --- | --- |
 | `scripts/automation/invoke_image_json_service.py` | 将图片按 MD5 编码为 Base64 JSON 并调用可配置 HTTP 服务，默认预览 | `tests/automation/temu_invoke_image_service.py` |
+| `scripts/automation/evaluate_image_text_service.py` | 批量调用图片转文本 HTTP 服务，根据文件名中的预期文本计算准确率并导出报告，默认预览 | `tests/automation/queueit_evaluate_ocr_common2.py` |
 
 远程删除、账号分析和写死凭证的服务调用不会直接迁入；后续继续提取明确可复用的服务启动、健康检查、批量请求和客户端调用功能。
