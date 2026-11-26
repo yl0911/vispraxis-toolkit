@@ -113,3 +113,11 @@ answer:
 Failure on the first two questions means exclusion. Failure on later questions
 usually means `legacy-review` until the capability is worth the refactoring
 cost.
+
+## Review completion
+
+The initial 113-file migration pool has been fully reviewed. Its final accounting
+is maintained in `migration-status.md`: selected capabilities were standardized,
+duplicates were merged, and every remaining source received an explicit exclude
+or defer decision. Future additions to `D:\yl\localcode` should start a new
+review entry rather than reopening the completed baseline implicitly.

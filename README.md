@@ -76,3 +76,4 @@ local/
 - [迁移状态](docs/migration-status.md)
 
 已确认不迁移旧目录中的 `asr`、`backend`、`baiduapi`，以及缓存、生成物、远程删除、账号分析和其他明确无用内容。
+首轮 113 个旧代码文件已全部完成迁移或取舍审核：56 个来源已迁移/合并，57 个已明确排除或暂缓，详见 [迁移状态](docs/migration-status.md)。

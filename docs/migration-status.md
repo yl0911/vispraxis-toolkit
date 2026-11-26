@@ -14,14 +14,12 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Legacy source files already migrated or merged | 56 |
 | Standardized generic scripts produced | 44 |
 | Shared business-call references produced | 44 |
-| Legacy files reviewed and explicitly rejected/deferred | 45 |
-| Remaining legacy files without a final per-file disposition | 12 |
+| Legacy files reviewed and explicitly rejected/deferred | 57 |
+| Remaining legacy files without a final per-file disposition | 0 |
 
-The remaining 12 is intentionally conservative. Some files have already been
-recognized at a group level as business-specific, experimental, duplicated, or
-unsafe, but they stay in the unaudited count until their exact path and final
-decision are recorded. This avoids reporting group-level assumptions as a
-completed file review.
+All 113 files in the review pool now have a final migration, merge, exclusion,
+or defer decision. Deferred files remain available in `D:\yl\localcode`, but
+they are no longer unaudited migration candidates.
 
 ## Migrated generic scripts
 
@@ -97,19 +95,11 @@ These are not assumed to be reusable merely because they are Python scripts:
 
 They remain in `D:\yl\localcode` until their current business use is confirmed.
 
-## Generic candidates still to review
+## Review completion
 
-- remaining archive, packaging, specialized rename, and dataset assembly code;
-- COCO/VOC conversion variants and annotation rendering not already superseded;
-- background removal, similarity, clustering, odd-target detection, and
-  synthetic image generation whose current use is still unclear;
-- current service-start and health-check helpers after provider and credential
-  assumptions are separated;
-- recent large scripts such as RGBA icon clustering, reviewed independently
-  rather than copied as a complete historical project.
-
-Candidates are migrated in small reviewed batches. A candidate may still be
-rejected if its useful behavior cannot be separated from one historical task.
+There are no unaudited files left in the current 113-file review pool. A
+deferred source can still be reconsidered when a concrete workflow requires it;
+that is a new capability decision, not unfinished migration work.
 
 Rejected after review: the old `json_to_xml.py` is incomplete. The two historical
 COCO-to-VOC implementations were later merged into a parameterized converter
@@ -206,3 +196,20 @@ same retired private-network image API client with embedded application secrets,
 fixed capability endpoints, and multiprocessing test loops. Generic image JSON
 requests are already covered by `invoke_image_json_service.py`; these protocol
 variants are explicitly excluded rather than copied.
+
+The final twelve file-level decisions are:
+
+| Legacy source | Decision | Reason |
+| --- | --- | --- |
+| `bty/del_redis_mongodb.py` | exclude | Destructive Redis/MongoDB clearing helper with no reusable data contract |
+| `bty/test_simple.py` | defer-test | Historical service test with fixed private protocol parameters |
+| `dingstock/062325-KA用户域名分析.py` | exclude | Account/domain-analysis workflow already excluded by project scope |
+| `dingstock/aws_img_clear.py` | exclude | AWS challenge-specific cleanup and answer curation; generic hashing is already covered |
+| `dingstock/KaUser_mongodb_add.py` | exclude | One domain-analysis JSON schema imported into one MongoDB collection |
+| `dingstock/ocr_crawler_img.py` | exclude | Selenium crawler tied to one external site's captcha and browser layout |
+| `dingstock/ocr_crawler_img_20250410.py` | exclude | Site-specific variant of the same OCR crawler |
+| `dingstock/scrape_test.py` | defer-test | Credential-bearing scraping-provider experiments and commented request samples |
+| `ws/test_fun.py` | defer-test | Mixed multiprocessing, plotting, OpenCV, and pickle snippets rather than one capability |
+| `ws/TY_test.py` | defer-test | Fixed private endpoint and retired application-signing protocol |
+| `ws/yzy_jk_JT_request.py` | exclude | Named-customer request with embedded secret and private endpoint |
+| root `test.py` | defer-test | Small retry/API experiment containing no stable Toolkit function boundary |
