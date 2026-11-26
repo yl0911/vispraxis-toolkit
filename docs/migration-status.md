@@ -11,13 +11,13 @@ Current source-file accounting after excluding the entire `asr`, `backend`,
 | Item | Count |
 | --- | ---: |
 | Legacy code/notebook files in the review pool | 113 |
-| Legacy source files already migrated or merged | 51 |
-| Standardized generic scripts produced | 40 |
-| Shared business-call references produced | 40 |
-| Legacy files reviewed and explicitly rejected/deferred | 40 |
-| Remaining legacy files without a final per-file disposition | 22 |
+| Legacy source files already migrated or merged | 56 |
+| Standardized generic scripts produced | 44 |
+| Shared business-call references produced | 44 |
+| Legacy files reviewed and explicitly rejected/deferred | 45 |
+| Remaining legacy files without a final per-file disposition | 12 |
 
-The remaining 22 is intentionally conservative. Some files have already been
+The remaining 12 is intentionally conservative. Some files have already been
 recognized at a group level as business-specific, experimental, duplicated, or
 unsafe, but they stay in the unaudited count until their exact path and final
 decision are recorded. This avoids reporting group-level assumptions as a
@@ -67,6 +67,10 @@ completed file review.
 | `scripts/vision/composite_rgba_foregrounds.py` | root `get_mask_final.py`, `get_mask_final_baseimg.py` | Two experiments merged into deterministic, bounded RGBA composition without per-pixel Python loops |
 | `scripts/vision/find_color_outlier_targets.py` | root `find_odd_target.py` | Color-histogram outlier scoring extracted from its HCaptcha defaults; structured results and explicit visualization output added |
 | `scripts/automation/evaluate_image_text_service.py` | `dingstock/ocr_common2_eval.py` | Dataset collection, batched service calls, response matching, accuracy calculation, and reports retained; local endpoint and service parameters moved to the business call |
+| `scripts/vision/stitch_base_with_indexed_images.py` | `dingstock/geetest_v4_making_req_data.py`, `dingstock/geetestv4_making_test.py` | Two base-plus-icons stitchers merged; alpha handling, recursive grouping, missing slots, index origin, and output layout are explicit |
+| `scripts/vision/extract_fixed_image_strip.py` | `dingstock/shein_and_gtv3.py` | Fixed strip extraction retained; hashing-based deduplication is delegated to the existing dataset script instead of remaining coupled to cropping |
+| `scripts/documents/extract_docx_content.py` | `ws/word.ipynb` | Paragraph, table, and embedded-media extraction moved out of the notebook and implemented directly against the standard DOCX ZIP/XML structure |
+| `scripts/vision/split_images_into_grid.py` | `dingstock/captcha_test.py` | Generic grid splitting extracted; service-specific requests, answer schemas, drawing, and dataset paths remain business code |
 
 Each row has a corresponding business call under `tests/<domain>/` when the
 legacy source contained meaningful parameters.
@@ -186,3 +190,19 @@ The older root `z_geticon_v3_shein.py` is superseded by the much newer
 combines multiple HCaptcha data-generation versions, clustered-label contracts,
 background generators, masks, and business output layouts in one large module;
 it should only be split when those current workflows are explicitly required.
+
+`bty/Pic_Tools.py` contains only a list of intended image-tool features and no
+implementation. Its listed capabilities are already represented by reviewed
+annotation, conversion, dataset-split, and image scripts, so the placeholder is
+excluded rather than copied.
+
+`ws/pdf.ipynb` duplicates the existing PDF page renderer and also contains an
+obsolete private-PyMuPDF experiment for extracting raw image objects. The page
+workflow is already covered by `render_pdf_pages.py`; the notebook itself is
+therefore excluded rather than migrated.
+
+`ws/AI_API.py`, `ws/AI_API_v2.py`, and `ws/flask_test.py` are variants of the
+same retired private-network image API client with embedded application secrets,
+fixed capability endpoints, and multiprocessing test loops. Generic image JSON
+requests are already covered by `invoke_image_json_service.py`; these protocol
+variants are explicitly excluded rather than copied.

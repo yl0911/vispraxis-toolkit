@@ -40,6 +40,7 @@
 | `scripts/documents/sync_voc_image_sizes.py` | 按对应图片的真实尺寸同步 VOC width、height、depth，默认预览 | `tests/documents/street_sync_voc_image_sizes.py` |
 | `scripts/documents/coco_to_voc.py` | 将 COCO 检测框转换为 Pascal VOC XML，支持类别筛选和可选复制图片 | `tests/documents/coco_outdoor_coco_to_voc.py` |
 | `scripts/documents/remove_voc_labels.py` | 从 Pascal VOC XML 中批量移除指定类别对象，默认预览 | `tests/documents/street_remove_voc_labels.py` |
+| `scripts/documents/extract_docx_content.py` | 从 DOCX 提取段落、表格二维数据和内嵌媒体，并生成 JSON 内容报告 | `tests/documents/sample_extract_docx_content.py` |
 
 ## 视觉算法与图像处理
 
@@ -55,6 +56,9 @@
 | `scripts/vision/crop_images_by_voc_annotations.py` | 按每张图片对应的 VOC XML 批量裁剪对象并按类别保存 | `tests/vision/geetest_crop_images_by_voc_annotations.py` |
 | `scripts/vision/composite_rgba_foregrounds.py` | 将 RGBA 前景随机旋转、缩放并按透明度叠加到背景图，支持固定随机种子 | `tests/vision/icon_composite_augmentation.py` |
 | `scripts/vision/find_color_outlier_targets.py` | 基于旋转不敏感的 Lab 颜色直方图，从贴合目标的检测框中识别视觉离群项 | `tests/vision/hcaptcha_find_color_outlier_targets.py` |
+| `scripts/vision/stitch_base_with_indexed_images.py` | 将主图与同名前缀、按序号命名的小图缩放后纵向拼接，支持缺图占位和递归目录 | `tests/vision/geetest_v4_stitch_request_images.py` |
+| `scripts/vision/extract_fixed_image_strip.py` | 按固定起点、宽度、间隔和数量批量切分横向图像条，可选保留顶部区域或读取透明通道 | `tests/vision/visionengine_extract_icon_strip.py` |
+| `scripts/vision/split_images_into_grid.py` | 将单张或批量图片切成任意行列网格，按比例边界完整保留不能整除的边缘像素 | `tests/vision/captcha_split_three_by_three_grid.py` |
 
 ## 服务调度辅助
 
